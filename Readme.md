@@ -1,8 +1,8 @@
-# Home Service Management App
+# Household Service Management App
 
 ## Abstract➖
 
-The Home Service Management System aims to create a platform that connects services
+The Household Service Management System aims to create a platform that connects services
 professions with customer seeking home services.This system allows booking feature,
 rating feature ,multi-role feature ,search feature and category feature with implementation
 of CRUD with REST architecture.
