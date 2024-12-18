@@ -9,13 +9,13 @@ of CRUD with REST architecture.
 
 ## Approach➖
 
-    ### System Architecture:-
+    System Architecture:-
     ❖ Used Flask as a backend server with SQLite as Database
     ❖ Implemented RestFul architecture
     ❖ Created a config.py for handling production based configuration
     ❖ Properly distributed Point of concern based on structure.
 
-    ### Database Design:-
+    Database Design:-
     ❖ Created a schema using Flask-SQLAlchemy ORM
     ❖ Designed Tables to handle incoming requests(“ServiceRequested”) and
     Accepted requests (“AssignedService”).➖
