@@ -1,0 +1,14 @@
+{% extends "_layout.html" %}
+{% block title %}{{page_title}}{% endblock %}
+{% block body %}
+
+{% include '_navbar.html'  %}
+<div style="display: flex;justify-content: center;align-items: center; margin-top: 300px; flex-direction: column;">
+    <h1>Create All Roles</h1>
+    <form action="{{url_for('role_create')}}" method="post">
+        <button type="submit">Create</button>
+    </form>
+   
+</div>
+
+{% endblock %}

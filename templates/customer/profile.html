@@ -1,0 +1,113 @@
+{% extends "_layout.html" %}
+{% block title %}{{page_title}}{% endblock %}
+{% block body %}
+
+{% include '_navbar.html'  %}
+
+<div style="display: flex">
+    <div style="display: flex;justify-content: center;align-items: center;gap:1px;flex-direction: column; min-width: 30%;border: 2px solid rgb(185, 185, 185);height: 90vh;margin: auto; padding:30px">
+        <div style="width: 150px;height: 150px; border: 2px solid rgb(185, 185, 185)">
+            <img style="width: 100%;height: 100%;" src="{{ url_for('static', filename='avatar7.jpg') }}" alt="profile pic">
+        </div>
+        <h2 style="text-align: center;color: black;">{{customer_deatil.username}}</h2>
+        <div style="display: flex;justify-content: center; gap: 10px; font-style: italic;flex-direction: column;">
+            <a style="color: gray;" href="#">Email:-{{customer_deatil.email}}</a>
+            <a style="color: gray;" href="#">Phone number:-{{customer_deatil.phone}}</a>
+        </div>
+
+    </div>
+    <div style="min-width: 70%;border: 2px solid rgb(185, 185, 185);height: 90vh;margin: auto;padding-top: 20px;">
+        <div style="min-height: 40vh; overflow-y: auto;">
+
+           
+            <table  class="table table-secondary table-hover table-striped">
+                <h2 style="text-align: center;color: black;">Service Appionments</h2>
+
+                <thead>
+                  <tr style="background-color: rgba(0, 0, 0, 0.818); color: white;">
+                    <th scope="col">#</th>
+                    <th scope="col">Service name</th>
+                    <th scope="col">Appionments Date</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Status</th>
+                  </tr>
+                </thead>
+                {% for appionment in service_appionment %}
+                <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>{{appionment.serviceName}}</td>
+                        <td>{{appionment.appoinmentDate}}</td>
+                        <td>{{appionment.price}}</td>
+                        <td><span>{{appionment.status}}</span></td>
+                    </tr>
+                </tbody>
+                {% endfor %}
+            </table>
+
+        </div>
+        <div style=" overflow-y: auto;">
+            <table class="table table-secondary table-hover table-striped">
+                <h2 style="text-align: center;color: black;">Past Services</h2>
+                <thead>
+                  <tr style="background-color: rgba(0, 0, 0, 0.818); color: white;">
+                    <th scope="col">#</th>
+                    <th scope="col">Service name</th>
+                    <th scope="col">Category</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Rated</th>
+                    <th scope="col">Feedback</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {% for past_service in past_services %}
+                  <tr>
+                    <th scope="row">{{loop.index}}</th>
+                    <td>
+                        
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#{{past_service.username}}">
+                            {{past_service.serviceName}}
+                        </button>
+                        
+                        <!-- Modal -->
+                        <div class="modal fade" id="{{past_service.username}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                <h5 style="color: black;" class="modal-title" id="exampleModalLabel">{{past_service.serviceName}}</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">X</button>
+                                </div>
+                                <div class="modal-body text-dark">
+                                    <p>Username:-{{past_service.username}}</p>
+                                    <p>Email:-{{past_service.email}}</p>
+                                    <p>Phone:-{{past_service.phone}}</p>
+                                    <p>Adress:-{{past_service.address}}</p>
+                                    <button type="button" class="btn btn-dark">
+                                        <a style="color:white;text-decoration: none;" href="{{url_for('booking_route_view', customerUserName=userName,serviceUserName=past_service.username,action='book')}}">
+                                         Re-Book Now
+                                        </a>
+                                    </button>
+                                </div>
+                                <div class="modal-footer">
+                                <button type="button" class="btn btn-dark btn-block" data-bs-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                            </div>
+                            </div>
+                    </td>
+                    <td>{{past_service.category}}</td>
+                    <td>{{past_service.status}}</td>
+                    <td>{{past_service.rating}} star</td>
+                    <td style="width: 400px; overflow-x: auto;">{{past_service.feedback}}</td>
+                  </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+
+
+
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends "_layout.html" %}
+{% block title %}{{page_title}}{% endblock %}
+{% block body %}
+
+{% include '_navbar.html'  %}
+<h1 class="text-center" style="text-decoration:none; color: black; margin: 20px; font-weight: bolder;">Customers List</h1>
+<div style="margin: 20px; padding: 10px; height: 30vh; overflow-y: auto;">
+  <table class="table table-secondary table-hover table-striped">
+      <thead>
+        <tr style="background-color: rgba(0, 0, 0, 0.818); color: white;">
+          <th scope="col">#</th>
+          <th scope="col">Info</th>
+          <th scope="col">isFlagged</th>
+          <th scope="col">Total service Taken</th>
+          <th scope="col">Money Spend</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for customer in all_customer %}
+        <tr>
+          <th scope="row">{{loop.index}}</th>
+          <td>
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-light btn-block" style="width: 200px;" data-bs-toggle="modal" data-bs-target="#{{customer.info.username}}">
+                  {{customer.info.username}} info
+                </button>
+                
+                <!-- Modal -->
+                <div class="modal fade" id="{{customer.info.username}}" tabindex="-1" aria-labelledby="{{customer.info.username}}" aria-hidden="true">
+                    <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h5 style="color: black;" class="modal-title" id="exampleModalLabel">Customer Info</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">X</button>
+                        </div>
+                        <div class="modal-body text-dark">                        
+                            <p>Username:-{{customer.info.username}}</p>
+                            <p> Email:-{{customer.info.email}}</p>
+                            <p>Phone:-{{customer.info.phone}}</p>
+                            <p>Adress:-{{customer.info.address}}</p>
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                    </div>
+                    </div>
+          </td>
+          <td>
+            <a class="btn btn-light" href="{{url_for('admin_customer_route_view',userName=userName,action='changeCustomerFlag',id=customer.info.id)}}">{{customer.isFlagged}}</a>
+          </td>
+          <td>{{customer.total_service_taken}}</td>
+          <td>{{customer.money_spend}}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+  </table>
+</div>
+{% endblock %}

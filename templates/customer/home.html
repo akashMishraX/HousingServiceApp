@@ -1,0 +1,104 @@
+{% extends "_layout.html" %}
+{% block title %}{{page_title}}{% endblock %}
+{% block body %}
+
+{% include '_navbar.html'  %}
+
+<div style="display: flex;flex-direction: column;overflow: hidden;">
+    <div style="margin: 10px;padding: 10px; border: 2px solid rgb(185, 185, 185);min-width: 97vw; height: 350px;">
+        <h1 style="color: black;">Category:-</h1>
+        <div style="display: flex;gap: 10px;overflow-x: auto;">
+                {% for obj in all_category %}
+                <div style="height: 250px;width: 400px; border: 2px solid black; border-radius: 20px;display: flex; justify-content: center;align-items: center;flex-direction: column;">
+                    <h2 style="color: black;">{{obj.category.name}}</h2>
+                    <p>Total number of active services:-{{obj.category.services | length}}</p>
+                    <!-- MODEL BUTTON -->
+                    <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#{{obj.category.name}}">
+                        View all Services
+                    </button>
+                    <!-- MODEL -->
+                    <div class="modal fade" id="{{obj.category.name}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            <h5 style="color: black;" class="modal-title" id="exampleModalLabel">Category Name:-{{obj.category.name}}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">X</button>
+                            </div>
+                            <div class="modal-body">
+                                
+                                <table class="table">
+                                    <thead>
+                                      <tr style="background-color: rgba(0, 0, 0, 0.818); color: white;">
+                                        <th scope="col">#</th>
+                                        <th scope="col">Service Name</th>
+                                        <th scope="col">Price</th>
+                                        <th scope="col">Booking</th>
+                                      </tr>
+                                    </thead>
+                                    {% for service in obj.category.services %}
+                                    <tbody>
+                                      <tr>
+                                        <th scope="row">1</th>
+                                        <td>{{service.service_name}}</td>
+                                        <td>{{service.price}}</td>
+                                        <td>
+                                            <button type="button" class="btn btn-dark">
+                                                <a style="color:white;text-decoration: none;" href="{{url_for('booking_route_view',customerUserName=userName, serviceUserName= service.userName,action='book')}}">
+                                                    Book Now
+                                                   </a>
+                                             </button>
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                    {% endfor %}
+                                  </table>
+                                
+                            </div>
+                            <div class="modal-footer">
+                            <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+
+                {% endfor %}
+        </div>
+    </div>
+
+
+
+    <div  style="margin: 10px;padding: 10px; border: 2px solid rgb(185, 185, 185);min-width: 97vw;height: 500px; background-color: whitesmoke;">
+        <h1 style="color: black;">Top Rated Services:-</h1>
+        <table class="table table-secondary table-hover table-striped">
+            <thead>
+              <tr style="background-color: rgba(0, 0, 0, 0.818); color: white;">
+                <th scope="col">#</th>
+                <th scope="col">Service Name</th>
+                <th scope="col">Service Category</th>
+                <th scope="col">Rating</th>
+                <th scope="col">Booking</th>
+              </tr>
+            </thead>
+            <tbody>
+
+            {% for obj in top_services %}
+                <tr>
+                    <th scope="row">{{loop.index}}</th>
+                    <td><a style="color: black;" href="">{{obj.service.name}}</a> </td>
+                    <td>{{obj.service.category}}</td>
+                    <td>{{obj.service.rating}}</td>
+                    <td>
+                        <button type="button" class="btn btn-dark">
+                            <a style="color:white;text-decoration: none;" href="{{url_for('booking_route_view',customerUserName=userName, serviceUserName=obj.service.userName,action='book')}}">
+                             Book Now
+                            </a>
+                         </button>
+                    </td>
+                </tr>
+            {% endfor %}     
+            </tbody>
+          </table>
+    </div>
+</div>
+{% endblock %}

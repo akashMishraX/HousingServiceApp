@@ -1,0 +1,15 @@
+{% extends "_layout.html" %}
+{% block title %}{{page_title}}{% endblock %}
+{% block body %}
+
+{% include '_navbar.html'  %}
+
+<div style="margin: auto; width: 50%;border: 2px solid rgb(185, 185, 185); margin-top:20px ;background-color: white;">
+    <h1 style="text-align: center;color: black; font-weight: bolder;">Register </h1> 
+    <form action="{{url_for('signup_route_controller',userType='professional')}}" method="post" style="padding: 20px;">
+        {% from 'bootstrap4/form.html' import render_form %}
+        {{ render_form(form)  }}
+        
+    </form>
+</div> 
+{% endblock %}

@@ -1,0 +1,105 @@
+{% extends "_layout.html" %}
+{% block title %}{{page_title}}{% endblock %}
+{% block body %}
+
+{% include '_navbar.html'  %}
+
+<div style="display: flex;justify-content: center">
+    <div style="margin-top:20px ;background-color: white;min-width: 500px;">
+
+            <h1 style="color: black;">Search Service Professional</h1>
+            <form">
+            {% from 'bootstrap4/form.html' import render_form %}
+                {{ render_form(form)  }}
+            </form>
+    </div>
+</div>
+<div style="display: flex;justify-content: center;">
+    <div id="result" style="width: 90%; height: 550px;margin-top: 30px;">
+        <table class="table table-secondary table-hover table-striped">
+            <thead>
+              <tr style="background-color: rgba(0, 0, 0, 0.818); color: white;">
+                <th scope="col">#</th>
+                <th scope="col">Info</th>
+                <th scope="col">isAvaliable</th>
+                <th scope="col">isApproved</th>
+                <th scope="col">Work Info</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for service in all_services %}
+              <tr>
+                <th scope="row">{{loop.index}}</th>
+                <td>
+        
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-light btn-block" style="width: 200px;" data-bs-toggle="modal" data-bs-target="#{{service.info.name}}">
+                      {{service.info.name}} info
+                    </button>
+                    
+                    <!-- Modal -->
+                    <div class="modal fade" id="{{service.info.name}}" tabindex="-1" aria-labelledby="{{service.info.name}}" aria-hidden="true">
+                        <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            <h5 style="color: black;" class="modal-title" id="exampleModalLabel">Service Info</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">X</button>
+                            </div>
+                            <div class="modal-body text-dark">
+                                <p>Service Name:-{{service.info.name}}</p>                          
+                                <p>Username:-{{service.info.username}}</p>
+                                <p> Email:-{{service.info.email}}</p>
+                                <p>Phone:-{{service.info.phone}}</p>
+                                <p>Adress:-{{service.info.address}}</p>
+                                <p>Category:-{{service.info.category}}</p>
+                                <p>Price:-{{service.info.price}}</p>
+                            </div>
+                            <div class="modal-footer">
+                            <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                        </div>
+                        </div>
+                </td>
+                <td>{{service.isAvailable}}</td>
+                <td>
+                  <a class="btn btn-light" href="{{url_for('admin_category_route_view',userName=userName,action='changeServiceApprovalForSearch',id=service.info.id)}}">{{service.isApproved}}</a>
+                </td>
+                <td>
+                     <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-light btn-block" style="width: 200px;" data-bs-toggle="modal" data-bs-target="#{{service.info.username}}">
+                        Work Stats
+                    </button>
+                    
+                    <!-- Modal -->
+                    <div class="modal fade" id="{{service.info.username}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            <h5 style="color: black;" class="modal-title" id="exampleModalLabel">Work Stats</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">X</button>
+                            </div>
+                            <div class="modal-body text-dark">
+                              <p>Total work:-{{service.work_stats.total}}</p>
+                              <p>Total Pending acceptance:-{{service.work_stats.pending}}</p>
+                              <p>Total Rejected acceptance:-{{service.work_stats.rejected}}</p>
+                              <p>Total Completed work:-{{service.work_stats.completed}}</p>
+                              <p>Total Cancelled work:-{{service.work_stats.cancelled}}</p>
+                              <p>Rating:-{{service.work_stats.rating}}</p>
+                            </div>
+                            <div class="modal-footer">
+                            <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                        </div>
+                        </div>
+                      </td>
+                    </tr>
+                    {% endfor %}
+        
+            </tbody>
+          </table>
+    </div>
+</div>
+
+{% endblock %}

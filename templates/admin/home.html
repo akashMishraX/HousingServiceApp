@@ -1,0 +1,17 @@
+{% extends "_layout.html" %}
+{% block title %}{{page_title}}{% endblock %}
+{% block body %}
+
+{% include '_navbar.html'  %}
+<div style="height: 90vh;width: 100vw; display: flex; justify-content: space-around;">
+
+    <div style="height: 100%;;width: 45%; display: flex;justify-content: center;align-items: center;flex-direction: column;">
+        <h1 style="color: black; font-weight: bolder;">Total Service Professionals</h1>
+        <h3 style="font-size: 100px; color: gray;">{{service_count}}</h3>
+    </div>
+    <div style="height: 100%;;width: 45%;display: flex;justify-content: center;align-items: center;flex-direction: column;">
+        <h1 style="color: black; font-weight: bolder;">Total Customers</h1>
+        <h3 style="font-size: 100px; color: gray;">{{customer_count}}</h3>
+    </div>
+</div>
+{% endblock %}

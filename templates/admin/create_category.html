@@ -1,0 +1,20 @@
+{% extends "_layout.html" %}
+{% block title %}{{page_title}}{% endblock %}
+{% block body %}
+
+{% include '_navbar.html'  %}
+
+<div style="display: flex;justify-content: center;align-items: center; margin-top: 150px;">
+    <div style="margin: auto; width: 50%;border: 2px solid rgb(185, 185, 185); margin-top:20px ;background-color: white;padding: 20px;">
+        <h1 style="text-align: center;color: black; font-weight: bolder;">{{form_data.title}}</h1> 
+        <form action="" method="post" style="padding: 20px;">
+            {% from 'bootstrap4/form.html' import render_form %}
+            {{ render_form(form,button_size='lg')  }}
+        </form>
+    </div> 
+
+</div>
+
+
+
+{% endblock %}

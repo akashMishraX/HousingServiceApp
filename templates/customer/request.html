@@ -1,0 +1,103 @@
+{% extends "_layout.html" %}
+{% block title %}{{page_title}}{% endblock %}
+{% block body %}
+
+{% include '_navbar.html'  %}
+<h1 class="text-center" style="text-decoration:none; color: black; margin: 20px; font-weight: bolder;">Request List</h1>
+<div style="margin: 20px; padding: 10px; height: 90vh; overflow-y: auto;">
+  <table class="table table-secondary table-hover table-striped">
+      <thead>
+        <tr style="background-color: rgba(0, 0, 0, 0.818); color: white;">
+          <th scope="col">#</th>
+          <th scope="col">Info</th>
+          <th scope="col">isAccepted</th>
+          <th scope="col">Work Status</th>
+          <th scope="col">Edit request</th>
+          <th scope="col">Cancel request</th>
+          <th scope="col">Rate service</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for request in all_request %}
+        <tr>
+          <th scope="row">{{loop.index}}</th>
+          <td>
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-light btn-block" style="width: 200px;" data-bs-toggle="modal" data-bs-target="#{{request.info.username}}">
+                    {{request.info.serviceName}}
+                </button>
+                
+                <!-- Modal -->
+                <div class="modal fade" id="{{request.info.username}}" tabindex="-1" aria-labelledby="{{request.info.username}}" aria-hidden="true">
+                    <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h5 style="color: black;" class="modal-title" id="exampleModalLabel">Service Info</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">X</button>
+                        </div>
+                        <div class="modal-body text-dark">  
+                            <p>Name:{{request.info.serviceName}}-</p> 
+                            <p>Username:-{{request.info.username}}</p>                     
+                            <p>Category:-{{request.info.category}}</p>
+                            <p> Price:-{{request.info.price}}</p>
+                            <p>Rating:-{{request.info.rating}}</p>
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                    </div>
+                    </div>
+          </td>
+          <td>
+            {{request.isAccepted}}
+          </td>
+          <td>
+            {{request.workStatus}}
+          </td>
+          <td>
+            {% if request.isEditable == True %}
+                <button class="btn btn-dark" style="width: 140px;">
+                    <a style="text-decoration: none;color: white;" href="{{url_for('booking_route_view',customerUserName=request.info.customerName,serviceUserName=request.info.username,action='edit')}}">
+                        Edit
+                    </a>
+                </button>
+            {% else %}
+                <button class="btn btn-light" style="width: 140px;">
+                    <a style="text-decoration: none;color: black;" href="">Not Editable</a>
+                </button>
+            {% endif %}
+          </td>
+          <td>
+            {% if request.isCancelable == True %}
+            <button class="btn btn-dark" style="width: 160px;">
+                <a style="text-decoration: none;color: white;" href="{{url_for('customer_request_service_route_view',customerUserName=request.info.customerName,action='cancel',id=request.info.requestId)}}">    
+                    Cancel
+                </a>
+            </button>
+        {% else %}
+            <button class="btn btn-light" style="width: 160px;">
+                <a style="text-decoration: none;color: black;" href="">Not Cancelable</a>
+            </button>
+        {% endif %}
+          </td>
+          <td>
+            {% if request.isRateable == True %}
+            <button class="btn btn-light" style="width: 300px;">
+                <a style="text-decoration: none;color: black;" href="{{url_for('customer_rate_view',customerUserName=request.info.customerName,requestId=request.info.requestId,rating=-1)}}">Rate</a>
+            </button>
+            {% else %}
+            <button class="btn btn-light" style="width: 300px;">
+                <a style="text-decoration: none;color: black;" href="">Rated/Unable to rate</a>
+            </button>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+  </table>
+</div>
+
+
+
+{% endblock %}

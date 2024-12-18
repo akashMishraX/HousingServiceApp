@@ -1,0 +1,67 @@
+{% extends "_layout.html" %}
+{% block title %}{{page_title}}{% endblock %}
+{% block body %}
+
+{% include '_navbar.html'  %}
+
+<div style="width: auto">
+    <div style="display: flex; justify-content: space-around ; margin-top: 50px; flex-direction: column; ">
+        <div style="border: 2px solid rgb(185, 185, 185); min-width: vw; height: 400px; padding: 20px; overflow-x: auto;">
+          <h2 style="color: black;">Appoinments</h2>  
+           <div style="display: flex; gap: 10px;">
+            {% for appoinment in all_appoinment %}
+            <div class="card" style="min-width: 28rem; border: 2px solid rgb(185, 185, 185); border-radius: 20px;">
+                <div class="card-body">             
+                  <h5 style="color: black; " class="card-title">{{appoinment.customer_name}}</h5>
+                  <p class="card-text">Service_name:-{{appoinment.service_name}}</p>
+                  <p class="card-text">appoinment_date:-{{appoinment.appoinment_date}}</p>
+                  <p class="card-text">expected_completion_date:- {{appoinment.expected_completion_date}}</p>
+                  <a class="btn btn-dark btn-block" href="{{url_for('professional_request_view',serviceUserName=appoinment.service_username,customerUserName=appoinment.customer_name,request='makeascomleted')}}">Mark as completed</a>
+                </div>
+            </div>  
+        {% endfor %}
+           </div>
+  
+        </div>
+        <div style="display: flex;">
+            <div style="border: 2px solid rgb(185, 185, 185); min-width: 40%; margin: auto;  height: 400px; padding: 20px;overflow-x: auto;">
+              <h2 style="color: black; ">
+                <a style="color: black; text-decoration: none;" href="{{url_for('professional_profile_route_view',userName=site_title.name)}}">Service History</a>
+              </h2>
+              <div style="display: flex; gap: 10px;">
+                {% for completed in all_completed %}
+                  <div class="card" style="min-width: 22rem;border: 2px solid rgb(185, 185, 185); border-radius: 20px;">
+                    <div class="card-body">
+                      <h5 style="color: black; " class="card-title">{{completed.status}}</h5>
+                      <h6 style="color: black; "  class="card-text">customer_name:-{{completed.customer_name}}</h6>
+                      <p class="card-text">service_name:-{{completed.service_name}}</p>
+                      <p class="card-text">appoinment_date:-{{completed.appoinment_date}}</p>
+                      <p class="card-text">comletion_date:-{{completed.completion_date}}</p>
+                      <p class="card-text">rating:-{{completed.rating}}</p>
+                    </div>
+                  </div>
+                {% endfor %}
+              </div>
+            </div>
+            <div style="border: 2px solid rgb(185, 185, 185); min-width: 60%; margin: auto;  height: 400px; padding: 20px;overflow-x: auto;"> 
+              <h2 style=" color: black;">Service Request</h2>
+              <div style="display: flex; gap: 10px;">
+                {% for requested in all_requested %}
+                  <div class="card" style="min-width: 18rem;border: 2px solid rgb(185, 185, 185); border-radius: 20px;">
+                    <div class="card-body">
+                      <h5 style="color: black; " class="card-title">{{requested.username}}</h5>
+                      <p class="card-text">Service:-{{requested.service_name}}</p>
+                      <p class="card-text">{{requested.appoinment_date}}</p>
+                      <p class="card-text">expected_on:-{{requested.expected_date}}</p>
+                      <a href="{{url_for('professional_request_service_route_view',serviceUserName=site_title.name,customerUserName=requested.username,request='accept')}}" class="btn btn-dark">Accept</a>
+                      <a href="{{url_for('professional_request_service_route_view',serviceUserName=site_title.name,customerUserName=requested.username,request='reject')}}" class="btn btn-secondary">Reject</a>
+                    </div>
+                  </div>
+                {% endfor %}
+              </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

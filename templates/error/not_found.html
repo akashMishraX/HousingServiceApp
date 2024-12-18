@@ -1,0 +1,10 @@
+{% extends "_layout.html" %}
+{% block title %}{{page_title}}{% endblock %}
+{% block body %}
+
+{% include '_navbar.html'  %}
+
+<div style="margin: auto; width: 50%;border: 2px solid rgb(185, 185, 185); margin-top:20px ;background-color: white;">
+    <h1 style="text-align: center;color: black; font-weight: bolder;">{{message}}</h1> 
+</div> 
+{% endblock %}

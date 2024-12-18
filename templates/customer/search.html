@@ -1,0 +1,50 @@
+{% extends "_layout.html" %}
+{% block title %}{{page_title}}{% endblock %}
+{% block body %}
+
+{% include '_navbar.html'  %}
+
+<div style="display: flex;justify-content: center">
+    <div style="margin-top:20px ;background-color: white;min-width: 500px;">
+
+            <h1 style="color: black;">Search Service</h1>
+            <form">
+            {% from 'bootstrap4/form.html' import render_form %}
+                {{ render_form(form)  }}
+            </form>
+    </div>
+</div>
+<div style="display: flex;justify-content: center;">
+    <div id="result" style="width: 90%; height: 550px;margin-top: 30px;">
+        <table class="table">
+            <thead>
+              <tr style="background-color: rgba(0, 0, 0, 0.818); color: white;">
+                <th scope="col">#</th>
+                <th scope="col">Service Name</th>
+                <th scope="col">Category</th>
+                <th scope="col">Pricing</th>
+                <th scope="col">Rating</th>
+                <th scope="col">Booking</th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for obj in search_data %}
+              <tr>
+                <th scope="row">{{loop.index}}</th>
+                <td>{{obj.service_name}}</td>
+                <td>{{obj.category}}</td>
+                <td>{{obj.price}}</td>
+                <td>{{obj.rating}}</td>
+                <td>
+                  <button class="btn btn-dark">
+                    <a style="color: white;" href="{{url_for('booking_route_view',customerUserName=userName,serviceUserName=obj.username,action='book')}}">Book Now</a>
+                  </button>
+                </td>
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+    </div>
+</div>
+
+{% endblock %}

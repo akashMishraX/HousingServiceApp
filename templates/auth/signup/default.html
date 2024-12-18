@@ -1,0 +1,27 @@
+{% extends "_layout.html" %}
+{% block title %}Sign Up{% endblock %}
+{% block body %}
+
+{% include '_navbar.html'  %}
+
+<div style="display: flex;justify-content: center;align-items: center; margin-top: 300px;"></div>
+    <div style="margin: auto; width: 50%;margin-top:20px ;height: 20vh;font-weight: bolder;">
+        <h1 style="text-align: center;color: black;">Signup </h1>
+        <div style="display: flex; justify-content: space-around ; margin-top: 50px;">
+        
+            <button style="background-color: white; width: 300px; height: 50px; " onclick="handleCustomerSignup()">Customer</button>
+            <button style="background-color: white; width: 300px; height: 50px; " onclick="handleServiceProviderSignup()">Service Professional</button>
+        </div>
+        <span style="margin-top: 30px;display: flex;justify-content: center;">Already have an account?<a href="{{ url_for('login_route_view') }}">Login</a></span>
+    </form>
+    </div> 
+</div>
+<script>
+    function handleCustomerSignup(){
+        window.location.href = "{{ url_for('signup_route_controller',userType='customer') }}"
+    }
+    function handleServiceProviderSignup(){
+        window.location.href = "{{ url_for('signup_route_controller',userType='professional') }}"
+    }
+</script>
+{% endblock %}
